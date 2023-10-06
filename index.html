@@ -1,17 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captcha Generator</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <form onsubmit="validateCaptcha()">
-      <div id="captcha"></div>
-      <input type="text" placeholder="Captcha" id="cpatchaTextBox" />
-      <button type="submit">Submit</button>
+    <style>
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #D3A550;
+        }
+
+        #captchaForm {
+            text-align: center;
+        }
+
+        input[type="text"], button {
+            padding: 12px 20px;
+            display: inline-block;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #eeee53;
+            color: black;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 4px 2px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        #captchaContainer {
+            font-size: 25px;
+            font-family: Georgia;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        canvas {
+            pointer-events: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            input[type="text"], button {
+                font-size: 16px;
+            }
+
+            #captchaContainer {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="captchaForm">
+        <div id="captchaContainer"></div>
+        <input type="text" placeholder="Captcha" id="captchaInput">
+        <button type="submit">Submit</button>
     </form>
-    <script src="./script.js"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const captchaForm = document.getElementById('captchaForm')
+            const captchaInput = document.getElementById('captchaInput')
+            const captchaContainer = document.getElementById('captchaContainer')
+            let captchaCode = ''
+
+            function generateCaptcha() {
+                const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*"
+                const lengthOtp = 6
+                let captcha = ''
+                for (let i = 0; i < lengthOtp; i++) {
+                    const index = Math.floor(Math.random() * charsArray.length)
+                    captcha += charsArray[index]
+                }
+                captchaCode = captcha
+                updateCaptchaDisplay(captcha)
+            }
+
+            function updateCaptchaDisplay(captcha) {
+                captchaContainer.textContent = captcha
+            }
+
+            function validateCaptcha(event) {
+                event.preventDefault()
+                if (captchaInput.value === captchaCode) {
+                    alert('Valid Captcha')
+                    captchaInput.value = ''
+                    generateCaptcha()
+                } else {
+                    alert('Invalid Captcha. Try Again')
+                    captchaInput.value = ''
+                    generateCaptcha()
+                }
+            }
+
+            generateCaptcha()
+            captchaForm.addEventListener('submit', validateCaptcha)
+        })
+    </script>
+</body>
 </html>
