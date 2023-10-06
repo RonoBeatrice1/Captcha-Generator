@@ -98,15 +98,15 @@
                 if (captchaInput.value === captchaCode) {
                     alert('Valid Captcha')
                     captchaInput.value = ''
-                    generateCaptcha() // Generate a new CAPTCHA
+                    generateCaptcha()
                 } else {
                     alert('Invalid Captcha. Try Again')
                     captchaInput.value = ''
-                    generateCaptcha() // Generate a new CAPTCHA
+                    generateCaptcha()
                 }
             }
 
-            generateCaptcha() // Initial CAPTCHA generation
+            generateCaptcha()
             captchaForm.addEventListener('submit', validateCaptcha)
         })
     </script>
