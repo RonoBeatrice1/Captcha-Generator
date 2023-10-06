@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captcha Generator</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        input[type="text"] {
+            padding: 12px 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: rgb(238, 238, 83);
+            border: none;
+            color: black;
+            padding: 12px 30px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        #captchaContainer {
+            font-size: 25px;
+            font-family: Georgia;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        canvas {
+            pointer-events: none;
+        }
+
+    </style>
 </head>
 <body>
     <form id="captchaForm">
@@ -12,6 +43,45 @@
         <input type="text" placeholder="Captcha" id="captchaInput">
         <button type="submit">Submit</button>
     </form>
-    <script src="./script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const captchaForm = document.getElementById('captchaForm')
+            const captchaInput = document.getElementById('captchaInput')
+            const captchaContainer = document.getElementById('captchaContainer')
+            let captchaCode = ''
+
+            function generateCaptcha() {
+                const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*"
+                const lengthOtp = 6
+                let captcha = ''
+                for (let i = 0; i < lengthOtp; i++) {
+                    const index = Math.floor(Math.random() * charsArray.length)
+                    captcha += charsArray[index]
+                }
+                captchaCode = captcha
+                updateCaptchaDisplay(captcha)
+            }
+
+            function updateCaptchaDisplay(captcha) {
+                captchaContainer.textContent = captcha
+            }
+
+            function validateCaptcha(event) {
+                event.preventDefault()
+                if (captchaInput.value === captchaCode) {
+                    alert('Valid Captcha')
+                    captchaInput.value = ''
+                    generateCaptcha() // Generate a new CAPTCHA
+                } else {
+                    alert('Invalid Captcha. Try Again')
+                    captchaInput.value = ''
+                    generateCaptcha() // Generate a new CAPTCHA
+                }
+            }
+
+            generateCaptcha() // Initial CAPTCHA generation
+            captchaForm.addEventListener('submit', validateCaptcha)
+        })
+    </script>
 </body>
 </html>
