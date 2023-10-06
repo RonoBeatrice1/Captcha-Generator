@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captcha Generator</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <form onsubmit="validateCaptcha()">
-      <div id="captcha"></div>
-      <input type="text" placeholder="Captcha" id="cpatchaTextBox" />
-      <button type="submit">Submit</button>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <form id="captchaForm">
+        <div id="captchaContainer"></div>
+        <input type="text" placeholder="Captcha" id="captchaInput">
+        <button type="submit">Submit</button>
     </form>
     <script src="./script.js"></script>
-  </body>
+</body>
 </html>
