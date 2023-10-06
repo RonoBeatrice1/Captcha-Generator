@@ -4,24 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captcha Generator</title>
-    <link rel="stylesheet" href="./style.css">
     <style>
-        input[type="text"] {
-            padding: 12px 20px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #D3A550;
         }
 
-        button {
-            background-color: rgb(238, 238, 83);
-            border: none;
+        #captchaForm {
+            text-align: center;
+        }
+
+        input[type="text"], button {
+            padding: 12px 20px;
+            display: inline-block;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #eeee53;
             color: black;
-            padding: 12px 30px;
-            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
             margin: 4px 2px;
             cursor: pointer;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 300px;
         }
 
         #captchaContainer {
@@ -35,6 +53,15 @@
             pointer-events: none;
         }
 
+        @media screen and (max-width: 768px) {
+            input[type="text"], button {
+                font-size: 16px;
+            }
+
+            #captchaContainer {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
